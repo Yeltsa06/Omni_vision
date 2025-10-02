@@ -1,0 +1,21 @@
+# 编译产物
+build/
+install/
+log/
+devel/
+*.o
+*.so
+*.exe
+
+# 临时文件
+*.log
+*.tmp
+
+# Python
+__pycache__/
+*.pyc
+
+# VSCode
+.vscode/
+
+

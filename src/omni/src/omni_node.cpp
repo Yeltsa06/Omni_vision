@@ -14,6 +14,10 @@ public:
     explicit OmniNode(const rclcpp::NodeOptions & options)
     : Node("omni_node", options)
     {
+        // 读取 FOV 参数（可从 YAML 配置文件传入）
+        fov_x_ = this->declare_parameter("fov_x", 70.0);  // 默认水平视场 70 度
+        fov_y_ = this->declare_parameter("fov_y", 42.0);  // 默认垂直视场 42 度
+
         camera_id_ = this->declare_parameter("camera_id", 0);
 
         // 打开摄像头
@@ -75,6 +79,7 @@ private:
         auto armors = yolo_.detect(img);
         if (armors.empty()) return;
 
+        // 计算中心
         cv::Point2f img_center(img.cols / 2.0f, img.rows / 2.0f);
 
         // 找到距离中心最近的装甲板迭代器
@@ -89,10 +94,30 @@ private:
         // 只保留这个最近的装甲板
         Armor closest_armor = *closest_it;
         armors.clear();
-        armors.push_back(closest_armor); // 我猜会报错嘿嘿
+        armors.push_back(closest_armor); // 我猜从这里开始就会报错嘿嘿
+
+        // 计算角度
+        ArmorAngle angle = computeArmorAngle(closest_armor, img.cols, img.rows);
 
 
         
+    }
+
+    struct ArmorAngle
+    {
+        float yaw;
+        float pitch;
+    };
+
+    ArmorAngle computeArmorAngle(const auto_aim::Armor & armor, int img_width, int img_height)
+    {
+        cv::Point2f img_center(img_width / 2.0f, img_height / 2.0f);
+        cv::Point2f offset = armor.center - img_center;
+
+        ArmorAngle angle;
+        angle.yaw   = (offset.x / img_width) * fov_x_;
+        angle.pitch = -(offset.y / img_height) * fov_y_;
+        return angle;
     }
 
     int camera_id_;

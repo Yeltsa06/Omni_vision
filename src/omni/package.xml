@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>omni_vision</name>
+  <version>0.1.0</version>
+  <description>ROS2 node for omni vision, YOLOv8 armor detection and classification</description>
+  <maintainer email="your_email@example.com">Your Name</maintainer>
+  <license>Apache-2.0</license>
+
+  <!-- 构建依赖 -->
+  <buildtool_depend>ament_cmake</buildtool_depend>
+  <build_depend>rclcpp</build_depend>
+  <build_depend>sensor_msgs</build_depend>
+  <build_depend>OpenCV</build_depend>
+  <build_depend>Eigen3</build_depend>
+  <build_depend>yaml-cpp</build_depend>
+
+  <!-- 运行时依赖 -->
+  <exec_depend>rclcpp</exec_depend>
+  <exec_depend>sensor_msgs</exec_depend>
+  <exec_depend>OpenCV</exec_depend>
+  <exec_depend>Eigen3</exec_depend>
+  <exec_depend>yaml-cpp</exec_depend>
+
+  <!-- 测试依赖，可选 -->
+  <test_depend>ament_lint_auto</test_depend>
+  <test_depend>ament_lint_common</test_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>
