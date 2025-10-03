@@ -7,10 +7,10 @@
 #include <string>
 #include <vector>
 
-#include "tasks/auto_aim/armor.hpp"
-#include "tasks/auto_aim/classifier.hpp"
-#include "tasks/auto_aim/detector.hpp"
-#include "tasks/auto_aim/yolo.hpp"
+#include "armor.hpp"
+#include "classifier.hpp"
+#include "detector.hpp"
+#include "yolo.hpp"
 
 namespace auto_aim
 {

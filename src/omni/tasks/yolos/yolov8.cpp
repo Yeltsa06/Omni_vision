@@ -8,8 +8,8 @@
 #include <filesystem>
 #include <random>
 
-#include "tasks/auto_aim/classifier.hpp"
-#include "tools/img_tools.hpp"
+#include "classifier.hpp"
+#include "img_tools.hpp"
 // #include "tools/logger.hpp"
 
 namespace auto_aim
