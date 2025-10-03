@@ -6,7 +6,7 @@
 #include "rclcpp_components/register_node_macro.hpp"
 
 #include "yolo.hpp"
-#include "img_tools.hpp"
+// #include "img_tools.hpp"
 #include "armor.hpp"
 
 class OmniNode : public rclcpp::Node
@@ -39,7 +39,7 @@ public:
             std::bind(&OmniNode::imageCallback, this, std::placeholders::_1));
 
         auto config_path = "/home/yeltsa/Desktop/Omni_vision/src/omni/config/omni.yaml";
-        yolo_ = std::make_shared<auto_aim::YOLO>(config_path, true);
+        yolo_ = std::make_shared<auto_aim::YOLO>(config_path, false);
 
         std::thread([this]() { captureLoop(); }).detach();
     }

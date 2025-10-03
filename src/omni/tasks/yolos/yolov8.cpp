@@ -9,7 +9,7 @@
 #include <random>
 
 #include "classifier.hpp"
-#include "img_tools.hpp"
+// #include "img_tools.hpp"
 // #include "tools/logger.hpp"
 
 namespace auto_aim
@@ -277,12 +277,12 @@ void YOLOV8::draw_detections(
   const cv::Mat & img, const std::list<Armor> & armors, int frame_count) const
 {
   auto detection = img.clone();
-  tools::draw_text(detection, fmt::format("[{}]", frame_count), {10, 30}, {255, 255, 255});
+  // tools::draw_text(detection, fmt::format("[{}]", frame_count), {10, 30}, {255, 255, 255});
   for (const auto & armor : armors) {
     auto info = fmt::format(
       "{:.2f} {} {}", armor.confidence, ARMOR_NAMES[armor.name], ARMOR_TYPES[armor.type]);
-    tools::draw_points(detection, armor.points, {0, 255, 0});
-    tools::draw_text(detection, info, armor.center, {0, 255, 0});
+    // tools::draw_points(detection, armor.points, {0, 255, 0});
+    // tools::draw_text(detection, info, armor.center, {0, 255, 0});
   }
 
   if (use_roi_) {
@@ -290,7 +290,7 @@ void YOLOV8::draw_detections(
     cv::rectangle(detection, roi_, green, 2);
   }
   cv::resize(detection, detection, {}, 0.5, 0.5);  // 显示时缩小图片尺寸
-  cv::imshow("detection", detection);
+  // cv::imshow("detection", detection);
 }
 
 void YOLOV8::sort_keypoints(std::vector<cv::Point2f> & keypoints)
