@@ -6,8 +6,10 @@
   <maintainer email="your_email@example.com">Your Name</maintainer>
   <license>Apache-2.0</license>
 
-  <!-- 构建依赖 -->
+  <!-- 构建工具依赖 -->
   <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <!-- 构建依赖 -->
   <build_depend>rclcpp</build_depend>
   <build_depend>rclcpp_components</build_depend>
   <build_depend>sensor_msgs</build_depend>
@@ -16,6 +18,10 @@
   <build_depend>Eigen3</build_depend>
   <build_depend>yaml-cpp</build_depend>
   <build_depend>fmt</build_depend>
+
+  <!-- ✅ 新增：自定义消息包依赖 -->
+  <build_depend>omni_interfaces</build_depend>
+  <exec_depend>omni_interfaces</exec_depend>
 
   <!-- 运行时依赖 -->
   <exec_depend>rclcpp</exec_depend>
@@ -27,7 +33,7 @@
   <exec_depend>yaml-cpp</exec_depend>
   <exec_depend>fmt</exec_depend>
 
-  <!-- 测试依赖，可选 -->
+  <!-- 测试依赖（可选） -->
   <test_depend>ament_lint_auto</test_depend>
   <test_depend>ament_lint_common</test_depend>
 

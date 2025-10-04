@@ -1,6 +1,7 @@
+# -------------------- 敌方颜色 --------------------
 enemy_color: "blue"
 
-#####-----神经网络参数-----#####
+# -------------------- 神经网络参数 --------------------
 yolo_name: "yolov8"
 classify_model: "/home/yeltsa/Desktop/Omni_vision/src/omni/assets/tiny_resnet.onnx"
 yolov8_model_path: "/home/yeltsa/Desktop/Omni_vision/src/omni/assets/yolov8.xml"
@@ -17,7 +18,7 @@ max_side_ratio: 0.2          # double
 min_confidence: 0.8          # double
 max_rectangular_error: 15.0  # double, degree
 
-#####-----ROI-----#####
+# -------------------- ROI --------------------
 use_roi: false
 roi:
   x: 0          # int
@@ -26,3 +27,10 @@ roi:
   height: 480   # int
 
 use_traditional: false
+
+# -------------------- 相机参数 --------------------
+camera:
+  id: 0
+  fov_x: 70.0
+  fov_y: 42.0
+  cam_yaw_offset: 180.0

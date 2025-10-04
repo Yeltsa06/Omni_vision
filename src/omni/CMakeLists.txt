@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.22)
 project(omni_vision LANGUAGES CXX)
 
-# 配置 C++ 标准
+# -------------------- 基础设置 --------------------
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra")
@@ -14,7 +14,7 @@ find_package(sensor_msgs REQUIRED)
 find_package(cv_bridge REQUIRED)
 find_package(std_msgs REQUIRED)
 
-# 新增：自定义消息依赖
+# ✅ 新增：自定义接口包依赖（必须要有）
 find_package(omni_interfaces REQUIRED)
 
 # 第三方库依赖
@@ -43,7 +43,7 @@ set(SOURCES
     tools/img_tools.cpp
 )
 
-# -------------------- 生成可执行文件 --------------------
+# -------------------- 可执行文件 --------------------
 add_executable(omni_vision_node ${SOURCES})
 
 # -------------------- 依赖链接 --------------------
@@ -54,7 +54,7 @@ ament_target_dependencies(omni_vision_node
         sensor_msgs
         cv_bridge
         std_msgs
-        omni_interfaces   # 新增
+        omni_interfaces  # ✅ 关键：确保依赖接口包
 )
 
 target_link_libraries(omni_vision_node
@@ -69,6 +69,11 @@ if(TARGET openvino::runtime)
     target_link_libraries(omni_vision_node PRIVATE openvino::runtime)
 elseif(TARGET openvino)
     target_link_libraries(omni_vision_node PRIVATE openvino)
+endif()
+
+# ✅ 关键：显式添加接口包的 include 目录（有时必要）
+if(omni_interfaces_FOUND)
+    include_directories(${omni_interfaces_INCLUDE_DIRS})
 endif()
 
 # -------------------- 安装规则 --------------------
