@@ -1,6 +1,3 @@
-# -------------------- 敌方颜色 --------------------
-enemy_color: "blue"
-
 # -------------------- 神经网络参数 --------------------
 yolo_name: "yolov8"
 classify_model: "/home/yeltsa/Desktop/Omni_vision/src/omni/assets/tiny_resnet.onnx"
@@ -25,8 +22,6 @@ roi:
   y: 0          # int
   width: 640    # int
   height: 480   # int
-
-use_traditional: false
 
 # -------------------- 相机参数 --------------------
 camera:
