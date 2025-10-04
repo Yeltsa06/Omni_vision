@@ -7,6 +7,7 @@
 
 #include "yolo.hpp"
 #include "armor.hpp"
+#include "omni_interfaces/msg/omni_angle.hpp"   // 引入自定义消息
 
 class OmniNode : public rclcpp::Node
 {
@@ -25,9 +26,13 @@ public:
         }
         RCLCPP_INFO(this->get_logger(), "Camera %d opened", camera_id_);
 
-        // 发布检测结果
+        // 发布检测结果图片
         result_pub_ = this->create_publisher<sensor_msgs::msg::Image>(
             "/omni_result", rclcpp::SensorDataQoS());
+
+        // 发布角度
+        angle_pub_ = this->create_publisher<omni_interfaces::msg::OmniAngle>(
+            "/omni_angle", 10);
 
         auto config_path = "/home/yeltsa/Desktop/Omni_vision/src/omni/config/omni.yaml";
         yolo_ = std::make_shared<auto_aim::YOLO>(config_path, false);
@@ -42,6 +47,7 @@ private:
     int camera_id_;
     cv::VideoCapture cap_;
     rclcpp::Publisher<sensor_msgs::msg::Image>::SharedPtr result_pub_;
+    rclcpp::Publisher<omni_interfaces::msg::OmniAngle>::SharedPtr angle_pub_;
     std::shared_ptr<auto_aim::YOLO> yolo_;
 
     struct ArmorAngle { float yaw; float pitch; };
@@ -74,6 +80,12 @@ private:
 
                 auto_aim::Armor closest_armor = *closest_it;
                 ArmorAngle angle = computeArmorAngle(closest_armor, frame.cols, frame.rows);
+
+                // ---- 发布角度 ----
+                omni_interfaces::msg::OmniAngle angle_msg;
+                angle_msg.yaw = angle.yaw;
+                angle_msg.pitch = angle.pitch;
+                angle_pub_->publish(angle_msg);
 
                 RCLCPP_INFO(this->get_logger(), 
                     "Closest Armor: yaw=%.2f, pitch=%.2f", angle.yaw, angle.pitch);
